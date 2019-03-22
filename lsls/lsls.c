@@ -13,7 +13,7 @@ int print_out(char *directory, int levels) {
   DIR *d = opendir(directory);
   if (d == NULL)
   {
-    fprintf(stderr, "What? I don't see that\n");
+    fprintf(stderr, "Whoops\n");
     exit(1);
   }
 
