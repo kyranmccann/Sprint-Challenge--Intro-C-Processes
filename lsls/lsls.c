@@ -46,12 +46,21 @@ int main(int argc, char **argv)
     if(stat(path, &buffer) < 0)
     {
       fprintf(stderr, "something wrong in stat");
-      exit(3);
-    };
+    }
+    else
+    {
+      if(buffer.st_mode&S_IFDIR)
+      {
+        printf("<DIR> %s\n", dir->d_name);
+      }
+      else
+      {
+        printf("%ld %s\n", buffer.st_size, dir->d_name);
+      }
+    }
 
-    printf("%ld %s\n ", buffer.st_size,dir->d_name);
+
   }
-  printf("num args %d", argc);
 
   // Close directory
   closedir(d);
