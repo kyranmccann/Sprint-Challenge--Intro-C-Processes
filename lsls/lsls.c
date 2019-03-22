@@ -35,7 +35,7 @@ int main(int argc, char **argv)
   if (d == NULL)
   {
     fprintf(stderr, "What? I don't see that\n");
-    exit(2);
+    exit(1);
   }
 
   // Repeatedly read and print entries
@@ -46,6 +46,7 @@ int main(int argc, char **argv)
     if(stat(path, &buffer) < 0)
     {
       fprintf(stderr, "something wrong in stat");
+      exit(1)
     }
     else
     {
@@ -58,8 +59,6 @@ int main(int argc, char **argv)
         printf("%ld %s\n", buffer.st_size, dir->d_name);
       }
     }
-
-
   }
 
   // Close directory
