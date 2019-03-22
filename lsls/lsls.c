@@ -45,7 +45,7 @@ int print_out(char *directory, int levels) {
       {
         if (levels > 1)
         {
-          printf("       %ld %s\n", buffer.st_size, dir->d_name);
+          printf("%ld %s\n", buffer.st_size, dir->d_name);
         }
         else
         {
