@@ -10,12 +10,13 @@
 int main(int argc, char **argv)
 {
   char *directory;
-  DIR *d;
   struct dirent *dir;
   struct stat buffer;
+  //arbitrary reasonably-sized buffer
+  char path[4096];
 
   // Parse command line
-  if (argc > 1)
+  if (argc == 2)
   {
     directory = argv[1];
   }
@@ -30,7 +31,7 @@ int main(int argc, char **argv)
   }
 
   // Open directory
-  d = opendir(directory);
+  DIR *d = opendir(directory);
   if (d == NULL)
   {
     fprintf(stderr, "What? I don't see that\n");
@@ -40,10 +41,7 @@ int main(int argc, char **argv)
   // Repeatedly read and print entries
   while((dir = readdir(d)) != NULL)
   {
-    char path[4096];
-
-    snprintf(path, sizeof(path), "%s%s", directory, dir-> d_name);
-    printf("%s\n", dir -> d_name);
+    snprintf(path,sizeof(path), "%s/%s", directory, dir->d_name);
 
     if(stat(path, &buffer) < 0)
     {
@@ -51,9 +49,9 @@ int main(int argc, char **argv)
       exit(3);
     };
 
-    printf("%s\n", dir -> d_name);
-    printf("%ld %s\n", buffer.st_size, dir -> d_name);
+    printf("%ld %s\n ", buffer.st_size,dir->d_name);
   }
+  printf("num args %d", argc);
 
   // Close directory
   closedir(d);
